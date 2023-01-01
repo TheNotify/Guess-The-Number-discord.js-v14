@@ -9,26 +9,26 @@ module.exports = {
    * @param {Client} client
    */
   async execute(message, client) {
-    const data = await guessthenumber
+    const Data = await guessthenumber
       .findOne({ Guild: message.guild.id })
       .catch((err) => {});
-    if (!data) return;
+    if (!Data) return;
 
-    const environ = {
-      channelID: data.Channel,
-      number: data.number,
+    const guess = {
+      Channel: Data.Channel,
+      number: Data.number,
     };
     if (
       Number.isInteger(parseInt(message.content)) &&
-      parseInt(message.content) == environ.number &&
-      message.channel.id == environ.channelID
+      parseInt(message.content) == guess.number &&
+      message.channel.id == guess.Channel
     ) {
       message.pin().catch((err) => {});
       message.react("✅").catch((err) => {});
       message
         .reply({ content: `Congratulation! This user has guessed the correct number.` })
         .catch((err) => {});
-      data.delete();
+      await Data.delete();
     }
   },
 };
