@@ -23,7 +23,6 @@ module.exports = {
       parseInt(message.content) == guess.number &&
       message.channel.id == guess.Channel
     ) {
-      message.pin().catch((err) => {});
       message.react("✅").catch((err) => {});
       message
         .reply({ content: `Congratulation! This user has guessed the correct number.` })
